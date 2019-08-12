@@ -1,10 +1,15 @@
-export const state = () => {
-    user: {}
-};
+export const state = () => ({
+    user: {},
+    messages: []
+});
 
 export const mutations = {
     setUser(state, user){
         state.user = user
+    },
+    sendMessage(state, payload){
+        console.log('in');
+        state.messages.push(payload)
     }
 }
 

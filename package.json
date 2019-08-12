@@ -4,6 +4,11 @@
   "description": "My luminous Nuxt.js project",
   "author": "Neageadon",
   "private": true,
+  "config": {
+    "nuxt": {
+      "port": "3000"
+    }
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",

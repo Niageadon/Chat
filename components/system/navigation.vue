@@ -5,9 +5,8 @@
         <v-toolbar-title>Title</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn flat>Link One</v-btn>
-            <v-btn flat>Link Two</v-btn>
-            <v-btn flat>Link Three</v-btn>
+            <v-btn flat @click="toLogin">Login</v-btn>
+            <v-btn flat @click="toChat">Chat</v-btn>
         </v-toolbar-items>
     </v-toolbar>
     </div>
@@ -20,6 +19,14 @@
             return {
                 drawer: false,
                 users: []
+            }
+        },
+        methods:{
+            toChat(){
+                this.$router.push('/chat')
+            },
+            toLogin(){
+                this.$router.push('/login')
             }
         }
     }

@@ -10,7 +10,7 @@ io.on('connection', socket =>{
 
   socket.on('methodd', data =>{
     console.log(data)
-  })
+  });
   socket.emit('newMessage', {text: 'newMessage'})
 })
 

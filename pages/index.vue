@@ -10,7 +10,6 @@
 
 <script>
 
-
 export default {
   components: {
   },
@@ -25,6 +24,7 @@ export default {
   methods:{
     sendToServer(){
       this.$socket.emit('methodd', 'boba')
+
     }
   }
 }
