@@ -41,7 +41,7 @@
             ...mapMutations(["sendMessage"]),
             send(){
                 if(this.userText){
-                    console.log(this.userText)
+                    console.log(this.userText);
                     this.sendMessage(this.userText)
                 }
             }

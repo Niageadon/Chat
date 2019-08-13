@@ -9,13 +9,12 @@
             label="Name"
             required
         ></v-text-field>
-        <v-select
+        <v-text-field
             v-model="room"
-            :items="rooms"
-            :rules="[v => !!v || 'Item is required']"
+            :rules="roomRules"
             label="Item"
             required
-        ></v-select>
+        ></v-text-field>
         <v-btn
             :disabled="!valid"
             @click="submit"
@@ -35,15 +34,13 @@
       return{
         valid: true,
         name: '',
-        rooms: ['mt', 'bobaRoom'],
         room: '',
         nameRules: [
           v => !!v || 'Name is required',
           v => (v && v.length <= 10) || 'Name must be less than 10 characters'
         ],
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+        roomRules: [
+          v => !!v || 'room code is required',
         ],
         password: '',
         passwordRules: [

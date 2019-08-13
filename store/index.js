@@ -10,6 +10,9 @@ export const mutations = {
     sendMessage(state, payload){
         console.log('in');
         state.messages.push(payload)
+    },
+    clearData(state){
+        state.user = {}
     }
 }
 
