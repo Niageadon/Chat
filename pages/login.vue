@@ -58,8 +58,16 @@
             room: this.room
           };
 
-          this.setUser(user);
-          this.$router.push("/chat");
+          this.$socket.emit('userJoined', user, cbData => {
+            if (typeof cbData === 'string'){
+              console.error(cbData)
+            }
+            else {
+              this.setUser(user);
+              this.$router.push("/chat");
+            }
+          });
+
         }
       }
     }

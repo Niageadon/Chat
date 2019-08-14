@@ -14,7 +14,7 @@
             <v-btn @click="send">send</v-btn>
             <!--chat window-->
             <v-flex xs6><ul>
-                <li v-for="m in messages" :key="m.text">{{m.text}}</li>
+                <li v-for="(message,id) in messages" :key="id">{{message.text}}</li>
             </ul></v-flex>
 
         </v-layout>
@@ -45,6 +45,7 @@
                     message.autor = this.user;
                     message.text = this.userText;
                     this.sendMessage(message);
+                    this.userText = '';
                 }
             },
             leftRoom(){

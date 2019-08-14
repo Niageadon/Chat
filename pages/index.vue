@@ -4,7 +4,6 @@
     justify-center
     align-center
   >
-    <v-btn @click="sendToServer">ff</v-btn>
   </v-layout>
 </template>
 
@@ -22,10 +21,7 @@ export default {
     }
   },
   methods:{
-    sendToServer(){
-      this.$socket.emit('methodd', 'boba')
 
-    }
   }
 }
 </script>
