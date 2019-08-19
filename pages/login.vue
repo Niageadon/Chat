@@ -60,7 +60,7 @@
 
           this.$socket.emit('userJoined', user, cbData => {
             if (typeof cbData === 'string'){
-              console.error(cbData)
+              console.error('hey1', cbData)
             }
             else {
               this.setUser(user);
