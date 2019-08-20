@@ -2,7 +2,7 @@
   <v-app app dark>
     <navigation/>
     <v-content>
-      <div>
+      <div style="height: 100%">
         <nuxt/>
       </div>
     </v-content>
