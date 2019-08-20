@@ -12,7 +12,7 @@
         <v-text-field
             v-model="room"
             :rules="roomRules"
-            label="Item"
+            label="Room"
             required
         ></v-text-field>
         <v-btn
