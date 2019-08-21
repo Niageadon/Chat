@@ -4,7 +4,7 @@ const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-const m = (name, text, id) => ({name, text, id});
+const m = (author, text, id) => ({author, text, id});
 
 io.on('connection', socket =>{
    console.log('Соединение установлено');
@@ -18,10 +18,9 @@ io.on('connection', socket =>{
         }
         socket.join(data.room);
         cb({ userId: socket.id});
-        socket.emit('newMessage', m('admin', `hello, ${data.name}`));
-        socket.emit('newMessage', m('admin', `hello, ${data.name}`));
+        socket.emit('newMessage', m('info', `hello, ${data.name}`));
         socket.broadcast.to(data.room)
-            .emit('newMessage', m('admin', `User: ${data.name} is login`))
+            .emit('newMessage', m('info', `User: ${data.name} is login`))
     });
 
     // socket.emit('newMessage', {text: 'newMessage'})
