@@ -14,6 +14,7 @@
             :rules="roomRules"
             label="Room"
             required
+            v-on:keyup.enter="submit"
         ></v-text-field>
         <v-btn
             :disabled="!valid"

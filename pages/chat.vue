@@ -7,11 +7,12 @@
                 <v-card-title class="py-1 pl-3">
                     <span class="caption" >{{message.author}}</span>
                 </v-card-title>
-                <v-card-text class="subheading font-weight-bold py-1">
+                <v-card-text class="font-weight-bold py-1">
                     {{message.text}}
                 </v-card-text>
             </v-card>
         </div>
+
         <v-textarea
             label="Message"
             solo no-resize
@@ -19,6 +20,7 @@
             v-model="userText"
             class="Chat_form"
         ></v-textarea>
+
     </div>
 </template>
 
@@ -58,46 +60,54 @@
 </script>
 
 <style scoped lang="scss">
-    $chat-form__height: 7rem;
-    $chat-form__mb: 0rem;
-    $chat-form__mx: 0rem;
+    $container-bc: #313131;
 
+    $chat-form-height: 7rem;
+    $chat-form-mb: 0rem;
+    $chat-form-mx: 0rem;
+    $chat-form-bc: #010101;
 
-    $message-max-width: 60%;
-    $message-max-width: 60%;
+    $message-min-width: 24%;
+    $message-max-width: 75%;
     $message-margin-owner: 100% - $message-max-width - 2%;
-    $message-margin-owner: 100% - $message-max-width - 2%;
-    $message-mb: $chat-form__height + $chat-form__mb;
-
-
-
+    $message-bc-owner: #EEFF70;
+    $message-mb: $chat-form-height + $chat-form-mb;
+    $message-bc: #e444ff;
+    $message-pt: .5rem;
 
     .Chat__container{
         /*Страница чата*/
         height: 100%;
-        background-color: #7F828B;
+        background-color: $container-bc;
         position: relative;
         overflow: hidden;
     }
     .Chat__messages{
         /*Контейнер для сообщений*/
-        padding-top: .5rem;
-        padding-bottom: .5rem;
+        top: 0;
+        padding-top: $message-pt;
         position: relative;
-        left: 0;
-        right: 0;
-        margin-bottom: $message-mb;
-        background-color: #ffa2b0;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 7rem;
         .Chat__message{
             /*сообщение*/
-            width: $message-max-width;
             position: relative;
+            align-self: flex-start;
+            display: inline-block;
+/*            float: left;    clear:both;*/
+            word-wrap: break-word; /*перенос на новую строку*/
+            min-width: $message-min-width;
+            max-width: $message-max-width;
             margin: 10px;
             min-height: 3rem;
-            background-color: orangered;
+            background-color: $message-bc;
         }
         .message_owner{
-            left: $message-margin-owner;
+            background-color: $message-bc-owner;
+            color: black;
+            align-self: flex-end;
+/*            float: right;*/
         }
     }
     .Chat_form{
@@ -106,11 +116,10 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: $chat-form__height;
-        background-color: blue;
-        margin-bottom: $chat-form__mb;
-        margin-left: $chat-form__mx;
-        margin-right: $chat-form__mx;
+        height: $chat-form-height;
+        margin-bottom: $chat-form-mb;
+        margin-left: $chat-form-mx;
+        margin-right: $chat-form-mx;
     }
 
 
