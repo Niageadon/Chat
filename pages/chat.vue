@@ -1,18 +1,8 @@
 <template>
-    <div  class="Chat__container">
-            <!--<v-flex xs10><v-textarea
-            name="input-7-1"
-            filled
-            label="Label"
-            auto-grow
-            v-model="userText"
-            style="min-height: 100px"
-        ></v-textarea></v-flex>
-        <v-btn @click="send">send</v-btn>-->
-        <!--chat window-->
-        <ul class="Chat__messages">
-            <li class="Chat__message" v-for="(message,id) in messages" :key="id">{{message.text}}</li>
-        </ul>
+    <div class="Chat__container">
+        <div class="Chat__messages">
+            <v-card class="Chat__message message_my" v-for="(message,id) in messages" :key="id">{{message.text}}</v-card>
+        </div>
         <div class="Chat_form">dd</div>
     </div>
 </template>
@@ -54,33 +44,41 @@
 
 <style scoped>
     .Chat__container{
+        /*Страница чата*/
         height: 100%;
         background-color: #7F828B;
         position: relative;
+        overflow: hidden;
     }
     .Chat_form{
-        position: absolute;
+        /*Поле для ввода сообщений*/
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
         padding: 1rem;
-        height: 160px;
+        height: 7rem;
         background-color: blue;
     }
     .Chat__messages{
+        /*Контейнер для сообщений*/
+        padding-top: .5rem;
+        padding-bottom: .5rem;
         position: relative;
         left: 0;
         right: 0;
-        padding: 1rem;
-        height: 60px;
-        background-color: orangered;
+        margin-bottom: 7rem;
+        background-color: #ffa2b0;
     }
     .Chat__message{
+        /*сообщение*/
+        width: 60%;
         position: relative;
-        left: 0;
-        right: 0;
-        padding: 1rem;
-        height: 60px;
+        margin: 10px;
+        min-height: 3rem;
         background-color: orangered;
+    }
+    .message_my{
+        left:28%
     }
 </style>
