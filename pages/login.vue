@@ -66,7 +66,7 @@
             }
             else {
               console.log(cbData);
-              user.id = cbData.userID;
+              user.id = cbData.userId;
               this.setUser(user);
               this.$router.push("/chat");
             }
