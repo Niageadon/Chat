@@ -38,7 +38,8 @@
         room: '',
         nameRules: [
           v => !!v || 'Name is required',
-          v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+          v => (v !== 'system') || 'You cant use "system" name'
         ],
         roomRules: [
           v => !!v || 'room code is required',
@@ -64,6 +65,8 @@
               console.error('hey1', cbData)
             }
             else {
+              console.log(cbData);
+              user.id = cbData.userID;
               this.setUser(user);
               this.$router.push("/chat");
             }

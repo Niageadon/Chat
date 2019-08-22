@@ -1,18 +1,19 @@
 <template>
     <div class="Chat__container">
+        <!--Поле сообщений-->
         <div class="Chat__messages">
             <v-card class="Chat__message message_my"
                     v-for="(message,id) in messages" :key="id"
-                    v-bind:class="{message_owner: message.author === user.name}">
+                    v-bind:class="{message_owner: message.name === user.name}">
                 <v-card-title class="py-1 pl-3">
-                    <span class="caption" >{{message.author}}</span>
+                    <span class="caption" >{{message.name}}</span>
                 </v-card-title>
                 <v-card-text class="font-weight-bold py-1">
                     {{message.text}}
                 </v-card-text>
             </v-card>
         </div>
-
+        <!--Поле ввода сообщения-->
         <v-textarea
             label="Message"
             solo no-resize
@@ -20,7 +21,6 @@
             v-model="userText"
             class="Chat_form"
         ></v-textarea>
-
     </div>
 </template>
 
@@ -37,6 +37,7 @@
         data(){
             return{
                 userText: '',
+                test: false,
             }
         },
         methods:{
@@ -45,9 +46,22 @@
                 if(this.userText){
                     //console.log(this.userText);
                     let message = {};
-                    message.author = this.user.name;
+                    message.name = this.user.name;
                     message.text = this.userText;
-                    this.sendMessage(message);
+                    //this.sendMessage(message);
+                console.log('boba', this.$store.state.user.id);
+                    this.$socket.emit("createMessage",
+                        {
+                            text: this.userText,
+                            id: this.$store.state.user.id
+                        },
+                        data => {
+                            if (typeof data === "string") {
+                                console.error(data);
+                            } else {
+                                this.text = "";
+                            }
+                         });
                     this.userText = '';
                 }
             },
@@ -121,6 +135,5 @@
         margin-left: $chat-form-mx;
         margin-right: $chat-form-mx;
     }
-
 
 </style>
