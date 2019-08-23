@@ -15,6 +15,7 @@ io.on('connection', socket =>{
             return cb('Data is\'t correct')
         }
         cb({userId: socket.id});
+        io.to(user.room).emit('updateUsers', users.getUsersInRoom(user.room));
         socket.join(data.room);
         users.remove(socket.id);
         users.add({
@@ -37,6 +38,22 @@ io.on('connection', socket =>{
         io.to(user.room).emit('newMessage', message(user.name, data.text, data.id))
       }
       cb();
+    })
+
+    socket.on('userLeft', (id, cb) => {
+      const user = users.remove(id);
+      if(user){
+        io.to(user.room).emit('newMessage', message('info', `User ${user.name} has left the room.`));
+      }
+      cb();
+    })
+
+    socket.on('disconnect', () => {
+      const user = users.remove(socket.id);
+      if(user){
+        io.to(user.room).emit('updateUsers', users.getUsersInRoom(user.room))
+        io.to(user.room).emit('newMessage', message('info', `User ${user.name} has left the room.`));
+      }
     })
     // socket.emit('newMessage', {text: 'newMessage'})
 })

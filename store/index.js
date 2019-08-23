@@ -1,6 +1,9 @@
+import { stat } from "fs";
+
 export const state = () => ({
     user: {},
-    messages: []
+    messages: [],
+    users: []
 });
 
 export const mutations = {
@@ -13,12 +16,16 @@ export const mutations = {
     },
     clearData(state){
         state.user = {};
+        state.users = [];
         state.messages.length = 0;
     },
     SOCKET_newMessage(state, message) {
         // message - {}
         console.log('mes',message);
         state.messages.push(message);
+    },
+    SOCKET_updateUsers(state, users){
+        state.users = users
     }
 };
 

@@ -17,6 +17,8 @@
         <v-textarea
             label="Message"
             solo no-resize
+            v-on:keydown.shift="shift = true"
+            v-on:keyup.shift="shift = false"
             v-on:keyup.enter="send"
             v-model="userText"
             class="Chat_form"
@@ -36,6 +38,7 @@
         computed: mapState(["user", "messages"]),
         data(){
             return{
+                shift: false, // user use key
                 userText: '',
                 test: false,
             }
@@ -43,13 +46,13 @@
         methods:{
             ...mapMutations(["sendMessage", "clearData"]),
             send(){
+                if(this.shift) return; // TODO: реализовать нормально обработку нажатия шифта
                 if(this.userText){
                     //console.log(this.userText);
                     let message = {};
                     message.name = this.user.name;
                     message.text = this.userText;
                     //this.sendMessage(message);
-                console.log('boba', this.$store.state.user.id);
                     this.$socket.emit("createMessage",
                         {
                             text: this.userText,
@@ -57,7 +60,7 @@
                         },
                         data => {
                             if (typeof data === "string") {
-                                console.error(data);
+                                console.error('createMessage', data);
                             } else {
                                 this.text = "";
                             }
@@ -66,8 +69,11 @@
                 }
             },
             leftRoom(){
-                this.$router.push('/?message=leftRoom');
-                this.clearData();
+                this.$socket.emit('userLest', this.user.id, () => {
+                    this.$router.push('/?message=leftRoom');
+                    this.clearData();
+                })
+                
             }
         }
     };
@@ -128,12 +134,15 @@
         /*Поле для ввода сообщений*/
         position: fixed;
         bottom: 0;
-        left: 0;
-        right: 0;
+        width: 100%;
+        margin-right: 100px;
         height: $chat-form-height;
         margin-bottom: $chat-form-mb;
         margin-left: $chat-form-mx;
         margin-right: $chat-form-mx;
+    }
+    .Chat_form textarea{
+        padding-right: 40px // TODO: почему не работает?
     }
 
 </style>
