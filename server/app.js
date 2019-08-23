@@ -9,13 +9,13 @@ const message = (name, text, id) => ({name, text, id});
 
 io.on('connection', socket =>{
     console.log('Соединение установлено');
+
     socket.on('userJoined', (data, cb) =>{
       console.log(data);
         if(!(data.name || data.room)){
             return cb('Data is\'t correct')
         }
         cb({userId: socket.id});
-        io.to(user.room).emit('updateUsers', users.getUsersInRoom(user.room));
         socket.join(data.room);
         users.remove(socket.id);
         users.add({
@@ -24,6 +24,7 @@ io.on('connection', socket =>{
           room: data.room
         });
         cb({ userId: socket.id});
+        io.to(data.room).emit('updateUsers', users.getUsersInRoom(data.room));
         socket.emit('newMessage', message('info', `hello, ${data.name}`));
         socket.broadcast.to(data.room)
             .emit('newMessage', message('info', `User: ${data.name} is login`))

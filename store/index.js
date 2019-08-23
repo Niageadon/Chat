@@ -1,4 +1,4 @@
-import { stat } from "fs";
+
 
 export const state = () => ({
     user: {},
@@ -25,6 +25,7 @@ export const mutations = {
         state.messages.push(message);
     },
     SOCKET_updateUsers(state, users){
+        console.log('SOCKET_updateUsers', users)
         state.users = users
     }
 };

@@ -4,17 +4,17 @@
                               clipped
         v-model="drawer" class="">
             <v-list>
-                <v-subheader>User's in room:</v-subheader>
+                <v-subheader>User's in room {{user.room}} :</v-subheader>
                 <v-list-tile
-                        v-for="(user,id) in users"
-                        :key="id"
+                        v-for="u in users"
+                        :key="u.id"
                         @click=""
                 >
                     <v-list-tile-content>
-                        <v-list-tile-title v-text="user.name"></v-list-tile-title>
+                        <v-list-tile-title v-text="u.name"></v-list-tile-title>
                     </v-list-tile-content>
                     <v-list-tile-action>
-                        <v-icon color="pink">chat</v-icon>
+                        <v-icon :color="u.name === user.name? 'gray': 'pink'">chat</v-icon>
                     </v-list-tile-action>
                 </v-list-tile>
 
@@ -42,9 +42,6 @@
         data () {
             return {
                 drawer: false,
-                users: [
-                    {name: 'boba'}
-                    ]
             }
         },
         methods:{
@@ -55,7 +52,7 @@
                 this.$router.push('/login')
             }
         },
-        computed: mapState(['user'])
+        computed: mapState(['user', 'users'])
 
     }
 </script>

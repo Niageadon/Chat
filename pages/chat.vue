@@ -1,17 +1,21 @@
 <template>
     <div class="Chat__container">
         <!--Поле сообщений-->
-        <div class="Chat__messages">
-            <v-card class="Chat__message message_my"
-                    v-for="(message,id) in messages" :key="id"
-                    v-bind:class="{message_owner: message.name === user.name}">
-                <v-card-title class="py-1 pl-3">
-                    <span class="caption" >{{message.name}}</span>
-                </v-card-title>
-                <v-card-text class="font-weight-bold py-1">
-                    {{message.text}}
-                </v-card-text>
-            </v-card>
+        <div  class="Chat__messages">
+            <div  v-for="(message,id) in messages" :key="id" class='message_container'>
+                <div v-if="message.name === 'info'" class="info_message">
+                {{message.text}}
+                </div> 
+                <v-card v-else class="Chat__message"
+                        v-bind:class="{message_owner: message.name === user.name}">
+                    <v-card-title class="py-1 pl-3">
+                        <span class="caption" >{{message.name}}</span>
+                    </v-card-title>
+                    <v-card-text class="font-weight-bold py-1">
+                        {{message.text}}
+                    </v-card-text>
+                </v-card>
+            </div>
         </div>
         <!--Поле ввода сообщения-->
         <v-textarea
@@ -91,6 +95,7 @@
     $message-max-width: 75%;
     $message-margin-owner: 100% - $message-max-width - 2%;
     $message-bc-owner: #EEFF70;
+    $message-bc-system: rgb(112, 210, 255);
     $message-mb: $chat-form-height + $chat-form-mb;
     $message-bc: #e444ff;
     $message-pt: .5rem;
@@ -107,15 +112,12 @@
         top: 0;
         padding-top: $message-pt;
         position: relative;
-        display: flex;
-        flex-direction: column;
         padding-bottom: 7rem;
         .Chat__message{
             /*сообщение*/
             position: relative;
             align-self: flex-start;
             display: inline-block;
-/*            float: left;    clear:both;*/
             word-wrap: break-word; /*перенос на новую строку*/
             min-width: $message-min-width;
             max-width: $message-max-width;
@@ -127,8 +129,15 @@
             background-color: $message-bc-owner;
             color: black;
             align-self: flex-end;
-/*            float: right;*/
         }
+    }
+    .info_message{
+        align-self: center;
+    margin: .3rem;
+    }       
+    .message_container{
+                display: flex;
+        flex-direction: column;
     }
     .Chat_form{
         /*Поле для ввода сообщений*/
